@@ -1,0 +1,11 @@
+th,
+td {
+  white-space: nowrap;
+  border: solid gray 1px;
+  font-family: 华文宋体;
+  padding: 5px;
+}
+
+table {
+  overflow: scroll;
+}

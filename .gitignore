@@ -1,0 +1,11 @@
+node_modules
+database/*.json
+api.http
+data.html
+data.json
+database.json
+log
+number.json
+out.md
+venv
+*.xlsx

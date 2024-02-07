@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>寒假计划</title>
+    <script>
+      this.ready = new Promise(function ($) {
+        document.addEventListener("DOMContentLoaded", $, { once: true });
+      });
+    </script>
+    <script src="https://unpkg.com/pagedjs/dist/paged.js"></script>
+    <script>
+      ready.then(() => {
+        let ctt = document.querySelector("body");
+        let paged = new Paged.Previewer();
+        paged.preview(ctt.content);
+      });
+    </script>
+    <style>
+      h1,
+      h2,
+      h3,
+      h4,
+      b {
+        font-family: "Times New Roman", 华文细黑;
+      }
+
+      p,
+      li {
+        font-family: "Times New Roman", 华文宋体;
+      }
+
+      blockquote p {
+        font-family: "Times New Roman", 华文楷体;
+      }
+
+      h2 {
+        counter-increment: counter-2;
+        counter-reset: counter-3;
+      }
+
+      h3 {
+        counter-increment: counter-3;
+        counter-reset: counter-4;
+      }
+
+      h4 {
+        counter-increment: counter-4;
+      }
+
+      h2::before {
+        content: counter(counter-2) " ";
+      }
+
+      h3::before {
+        content: counter(counter-2) "." counter(counter-3) " ";
+      }
+
+      h4::before {
+        content: counter(counter-2) "." counter(counter-3) "."
+          counter(counter-4) " ";
+      }
+
+      p {
+        text-indent: 2em;
+      }
+
+      ol {
+        margin-left: 2em;
+      }
+
+      li {
+        padding-left: 1em;
+      }
+
+      q {
+        quotes: none;
+      }
+
+      blockquote {
+        margin-left: 4em;
+      }
+
+      a {
+        color: black;
+      }
+
+      .planned::after,
+      .disperse::after,
+      .everyday::after,
+      .central::after,
+      .online::after,
+      .homework::after,
+      .unimportant::after,
+      .important::after {
+        margin-right: 0.5em;
+        vertical-align: super;
+        font-size: smaller;
+        background-color: black;
+        color: white;
+        font-family: "Times New Roman", 华文细黑;
+        font-weight: bold;
+      }
+
+      .planned::after {
+        content: "计划";
+      }
+
+      .disperse::after {
+        content: "分散";
+      }
+
+      .everyday::after {
+        content: "每天";
+      }
+
+      .central::after {
+        content: "集中";
+      }
+
+      .online::after {
+        content: "在线";
+      }
+
+      .homework::after {
+        content: "作业";
+      }
+
+      .important::after {
+        content: "重要";
+      }
+
+      .unimportant::after {
+        content: "不重要";
+      }
+
+      @media print {
+        #hide {
+          display: none;
+        }
+      }
+
+      @page {
+        margin: 15mm;
+
+        @bottom-center {
+          content: counter(page);
+          font-family: "Times New Roman";
+          color: black;
+        }
+      }
+
+      p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 ondblclick="window.print()">寒假计划</h1>
+    <p>为确保寒假学习质量，指定本计划。</p>
+    <h2>事务</h2>
+    <p>寒假要完成的事务，包括寒假作业和额外的复习预习工作。</p>
+    <h3>语文</h3>
+    <p>
+      语文的主要任务是夯实基础、养成基本素养，尽可能提升在阅读和作文方面的水平。
+    </p>
+    <h4>
+      背诵古诗文
+      <span class="important"></span>
+      <span class="homework"></span>
+      <span class="everyday"></span>
+    </h4>
+    <blockquote>
+      <p>
+        背诵七上、七下、八上、八下的诗歌和九下古诗文。九下古诗文，按照各班任课老师要求完成打卡。全部背诵内容，见《万唯•基础知识梳理》。
+      </p>
+    </blockquote>
+    <p>
+      共 75
+      首古诗和《鱼我所欲也》《送东阳马生序》前两段、《邹忌讽齐王纳谏》《出师表》共
+      4 篇文言文。每天早上背诵一些。平均每天背诵 3.75 首诗，并复习 7.5
+      首背过的古诗。文言文每天都应该诵读，平均每周背完一片文言文（《送东阳马生序》的前两段应该用更短的时间）。
+    </p>
+    <p>
+      背诵古诗文应当作为寒假最重要的任务之一，放在<b>每天早上固定时间</b>完成。背诵过程要大声读出足够多的次数。背诵后记录在日志中。复习要不查看内容的前提下直接背诵，每首诗词至少复习两遍，两遍复习和第一次背诵间隔不少于
+      1 天。
+    </p>
+    <h4>
+      练字
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <blockquote>
+      <p>
+        把九下要背诵的古诗文，在作文本上通默一遍。要求：字迹端正，有一定字体。开学交。
+      </p>
+    </blockquote>
+    <p>练字分散在每天完成，在背诵完每篇文言文后进行。</p>
+    <h4>
+      阅读名著
+      <span class="homework"></span>
+      <span class="everyday"></span>
+    </h4>
+    <blockquote>
+      <p>
+        精读《儒林外史》《简爱》
+        《简爱》先阅读原著，再跟着电影熟悉故事情节。推荐 1996、2011
+        年拍摄的影片。电影情节若与原著出入，以原著为主。
+      </p>
+      <p>《儒林外史》初二暑假已阅读完毕，这个寒假再浏览一遍。</p>
+      <p>
+        如果同学对之前的名著有所遗忘，特别是《西游记》《水浒传》等长篇，请一定利用这个最后的长假进行补救。
+      </p>
+      <p>
+        附：初中三年 12
+        本名著：《朝花夕拾》《西游记》《骆驼祥子》《海底两万里》《红星照耀中国》《昆虫记》《经典常谈》《钢铁是怎么炼成的》《艾青诗选》《水浒传》《儒林外史》和《简爱》。
+      </p>
+    </blockquote>
+    <p>每天抽空阅读。如有时间，一定要保证阅读时间。</p>
+    <p>读完名著应该读一些三文书。</p>
+    <h4>
+      两份综合卷
+      <span class="important"></span>
+      <span class="homework"></span>
+      <span class="everyday"></span>
+    </h4>
+    <blockquote>
+      <p>
+        满分130分，150分钟限时完成。其中包含作文，作文写在练字的作文本上。年前、年后各一份，老师会定时发到家长群。
+      </p>
+    </blockquote>
+    <p>
+      按照要求认真完成。一定认真完成。写作文要控制时间，但是要经过修改后誊写。尽量提前交给英老师（根据要求，要打成电子稿后在
+      QQ 上交给英老师）。
+    </p>
+    <h3>数学</h3>
+    <h4>
+      万维
+      <span class="unimportant"></span>
+      <span class="homework"></span>
+      <span class="central"></span>
+    </h4>
+    <blockquote>
+      <p>
+        《万唯试题研究》第一单元1-4课时，第二单元1-4课时，第三单元1-5课时，第四单元1-4单元，共17课时。
+      </p>
+    </blockquote>
+    <p>内容较多，难度不打，不应该投入太多精力。</p>
+    <h4>
+      复习卷、中考卷
+      <span class="homework"></span>
+      <span class="disperse"></span>
+      <span class="disperse"></span>
+    </h4>
+    <blockquote>
+      <p>复习卷2份<s>（需打印）</s>，每份完成时间40分钟，校对并订正。</p>
+      <p>中考真卷3份，每份完成时间120分钟，校对并订正。</p>
+    </blockquote>
+    <p>认真完成，要求全对。</p>
+    <h4>
+      错题整理
+      <span class="unimportant"></span>
+      <span class="homework"></span>
+      <span class="everyday"></span>
+    </h4>
+    <blockquote>
+      <p>
+        错题整理，相关资料：期末报纸，九上九下课时，期末补充讲义，平时练习试卷。
+      </p>
+    </blockquote>
+    <p>放在最后完成，寻求现代化解决方案。</p>
+    <h3>英语</h3>
+    <h4>
+      人机对话
+      <span class="online"></span>
+      <span class="important"></span>
+      <span class="homework"></span>
+      <span class="homework"></span>
+    </h4>
+    <p>
+      根据所给计划在
+      <a href="http://www.waiyutong.org/">外语通</a>
+      上完成。各个指标达到一定分数就算完成，并将学习内容和分数记在学习日志上。
+    </p>
+    <h4>
+      万维词汇
+      <span class="unimportant"></span>
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <p>自主安排，进度不慢于要求。</p>
+    <h4>
+      二十一世纪报
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <p>自主安排，进度不慢于要求。</p>
+    <h3>物理</h3>
+    <h4>
+      万维
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <blockquote>
+      <p>按计划完成《万维·精练本》P39-74。</p>
+    </blockquote>
+    <p>自主安排，进度不慢于要求。</p>
+    <h4>
+      试卷
+      <span class="important"></span>
+      <span class="homework"></span>
+      <span class="planned"></span>
+    </h4>
+    <blockquote>
+      <p>完成阶段综合练习四份（按时打卡提交）</p>
+    </blockquote>
+    <p>按照要求认真完成。</p>
+    <h4>
+      实验
+      <span class="unimportant"></span>
+      <span class="homework"></span>
+      <span class="central"></span>
+    </h4>
+    <blockquote>
+      <p>
+        完成家庭实验制作并录制视频，讲解原理、制作过程、制作技巧及经验总结等。
+      </p>
+    </blockquote>
+    <p>最后完成。</p>
+    <h3>化学</h3>
+    <h4>
+      试卷
+      <span class="important"></span>
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <blockquote>
+      <p>
+        四份练习，分别在 1 月 30 日、2 月 2 日、2 月 7 日、2 月 18
+        日按顺序各提交一份练习，要求做好后自批订正后提交
+      </p>
+    </blockquote>
+    <p>按照要求认真完成，不慢于要求。</p>
+    <h4>
+      实验
+      <span class="unimportant"></span>
+      <span class="homework"></span>
+      <span class="disperse"></span>
+    </h4>
+    <blockquote>
+      <p>
+        预习第七章酸碱盐内容并完成家庭小实验，将家庭小实验成果以照片或视频形式提交给任课老师。
+      </p>
+    </blockquote>
+    <p>最后完成。</p>
+    <h3>历史</h3>
+    <h4>
+      阅读课本
+      <span class="homework"></span>
+      <span class="important"></span>
+      <span class="everyday"></span>
+    </h4>
+    <blockquote>
+      <p>
+        <b>第一部分，必读内容，</b
+        >包括已经完成复习的教材内容，例如七年假上册，九年级上册，九年级下册。教材内的单元提示，课前提示，课本地图，材料研读，相关史事，知识拓展，课后活动，每一个板块内容必须认真阅读。有疑问的知识点，及时记录，在线提问老师或者开学后向老师提问。
+      </p>
+      <p>
+        特别要求，精读9年级下册的彩色课本，对照9下的黑白印刷本。如有不一致，以课本的内容为准。
+      </p>
+      <p>
+        <b>第二部分，错题回顾和消化。</b
+        >初三第一学期所做的作业、练习、测试中的所有错题，利用寒假时间，全部回顾一遍，每一个选项都要过关。
+      </p>
+      <p>
+        <b>第三部分，选读预习内容，</b
+        >包括七年级下册，八年级上册，八年级下册，建议把三本教材完整的阅读，为下学期的复习提前热身。阅读中产生的疑问，及时记录。
+      </p>
+    </blockquote>
+    <p>严格执行，可以充分利用空余时间。</p>
+    <h4>
+      完成练习
+      <span class="homework"></span>
+      <span class="important"></span>
+      <span class="disperse"></span>
+    </h4>
+    <p>内容包括：</p>
+    <ol>
+      <li>
+        领先一步三维提优七年级《中国历史》第一轮复习 P1, 5, 9 知识体系、核心考点
+      </li>
+      <li>领先一步三维提优七年级《中国历史》第一轮复习 P13-24</li>
+      <li>
+        领先一步三维提优七年级《中国历史》第一轮复习 P25, 29, 33, 37, 41, 45, 49
+        知识体系核心考点（其余题目不做）
+      </li>
+    </ol>
+    <p>在复习完后完成，自主安排。</p>
+    <h3>政治</h3>
+    <h4>
+      试卷
+      <span class="homework"></span>
+      <span class="unimportant"></span>
+      <span class="disperse"></span>
+    </h4>
+    <p>有空就做，可以先做选择题，集中做大题。</p>
+    <h2>时间安排</h2>
+    <h3>日程安排</h3>
+    <h2>学习日志</h2>
+    <h3>内容</h3>
+    <h3>格式</h3>
+    <h3>自动化</h3>
+  </body>
+</html>
