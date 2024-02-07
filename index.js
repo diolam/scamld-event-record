@@ -7,7 +7,7 @@ const vm = require("node:vm");
 const app = new Koa();
 
 app.use(bodyParser());
-app.use(static(__dirname + "/backend/dist"));
+app.use(static(__dirname + "/frontend/dist"));
 
 /**
  * @type {Router<{database: {

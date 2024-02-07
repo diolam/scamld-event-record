@@ -1,5 +1,5 @@
 build:
-	cd backend && yarn build
+	cd frontend && yarn build
 
 update:
 	echo ######################
@@ -14,3 +14,14 @@ update:
 backup:
 	node backup.js
 
+dev-frontend:
+	cd frontend && yarn dev
+
+dev-backend:
+	yarn dev
+
+initalize:
+	./initalize.bat
+
+start:
+	./start.bat
