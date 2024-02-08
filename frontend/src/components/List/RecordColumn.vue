@@ -1,37 +1,13 @@
 <script setup>
-import { saveValue, getAll } from "../api.js";
-import { ref  } from "vue";
+import { saveValue } from "../api.js";
+import { ref } from "vue";
+import { ElMessageBox } from "element-plus";
+import RecordForm from "./RecordForm.vue";
 
 const visable = ref(false);
 const value = ref({});
-const id = ref(0);
-const options = ref([]);
 const loading = ref(false);
-
-const computeOptions = async () => {
-    const database = await getAll();
-    const _options = [];
-    database.subject.forEach((subject) => {
-        _options.push({
-            value: subject.id,
-            label: subject.name,
-            children: database.task
-                .filter((task) => task.subject.id === subject.id)
-                .map((task) => ({
-                    value: task.id,
-                    label: task.name,
-                    children: database.step
-                        .filter((step) => step.task.id === task.id)
-                        .map((step) => ({
-                            value: step.id,
-                            label: step.name,
-                        })),
-                })),
-        });
-    });
-
-    options.value = _options;
-};
+const id = ref(0);
 
 const type_tag = {
     todo: "primary",
@@ -50,31 +26,23 @@ const status_text = {
 };
 
 const status_tag = {
-    todo: "warning",
-    cancelled: "info",
+    todo: "error",
+    cancelled: "warning",
     ok: "success",
 };
 
-const saveOK = async (value) => {
-    value.status = "ok";
-    loading.value = true;
-    await save(value);
-    loading.value = false;
-};
+const saveOK = async (value) => {};
 
 const save = async (value) => {
-    value.selected ^= true;
-    value.editable = false;
+    loading.value = true;
     await saveValue("record", value);
+    loading.value = false;
 };
 
-const handleEdit = async (scope) => {
+const handleEdit = (scope) => {
+    visable.value = true;
     id.value = [scope.row.subject.id, scope.row.task.id, scope.row.step.id];
     value.value = scope.row;
-    loading.value = true;
-    await computeOptions();
-    loading.value = false;
-    visable.value = true;
 };
 
 const handleSave = async () => {
@@ -82,43 +50,28 @@ const handleSave = async () => {
     await save(value.value);
     visable.value = false;
 };
+
+const del = async (value) => {
+    try {
+        await ElMessageBox.confirm("删除 1 个项目", "删除", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+        });
+    } catch {
+        return;
+    }
+    value.deleted = true;
+    save(value);
+};
 </script>
 
 <template>
-    <Teleport to="body">
-        <el-dialog v-model="visable">
-            <template #header> 修改 </template>
-            <el-form v-model="value">
-                <el-form-item label="日期">
-                    <el-date-picker v-model="value.date" value-format="YYYY-MM-DD" type="date" />
-                </el-form-item>
-                <el-form-item label="类型">
-                    <el-select v-model="value.type">
-                        <el-option
-                            v-for="item in ['todo', 'submit']"
-                            :key="item"
-                            :label="item"
-                            :value="item"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="步骤">
-                    <el-cascader v-model="id" :options="options" />
-                </el-form-item>
-                <el-form-item label="状态">
-                    <el-select v-model="value.status">
-                        <el-option
-                            v-for="item in ['todo', 'ok', 'cancelled']"
-                            :key="item"
-                            :label="status_text[item]"
-                            :value="item"
-                        />
-                    </el-select>
-                </el-form-item>
-            </el-form>
-            <el-button v-loading="loading" type="primary" @click="handleSave()">保存</el-button>
-        </el-dialog>
-    </Teleport>
+    <el-dialog v-model="visable" append-to-body draggable="true">
+        <template #header> 修改 </template>
+        <record-form v-if="value && visable" v-model:id="id" :value="value" />
+        <el-button v-loading="loading" type="primary" @click="handleSave()">保存</el-button>
+    </el-dialog>
     <el-table-column label="ID" prop="id" width="50" />
     <el-table-column label="日期" prop="date" width="120" />
     <el-table-column label="类型" width="80">
@@ -148,17 +101,23 @@ const handleSave = async () => {
             </el-tag>
         </template>
     </el-table-column>
-    <el-table-column label="操作" width="160">
+    <el-table-column label="操作" width="240">
         <template #default="scope">
             <el-button v-loading="loading" text type="primary" @click="handleEdit(scope)">
-                修改
+                编辑
+            </el-button>
+            <el-button v-loading="loading" text type="danger" @click="del(scope.row)">
+                删除
             </el-button>
             <el-button
                 v-loading="loading"
                 v-if="scope.row.status !== 'ok'"
                 text
-                type="primary"
-                @click="saveOK(scope.row)"
+                type="success"
+                @click="
+                    scope.row.status = 'ok';
+                    save(scope.row);
+                "
             >
                 完成
             </el-button>

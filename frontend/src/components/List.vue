@@ -33,7 +33,7 @@ img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' %3E%3Cpa
 <template>
     <el-tabs>
         <el-tab-pane label="新版">
-            <el-table
+        <el-table
                 v-if="schema && data && data.length > 0"
                 :data="data"
                 style="width: 100%; height: 800px"
@@ -41,6 +41,25 @@ img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' %3E%3Cpa
                 <component :is="views[schema]?.column" />
             </el-table>
             <span v-else v-loading="true"> Loading </span>
+        </el-tab-pane>
+        <el-tab-pane label="文本">
+            <el-text v-if="schema && data && data.length > 0">
+                <table>
+                    <thead>
+                        <component :is="views[schema]?.header" />"
+                    </thead>
+                    <tbody>
+                        <tr v-for="(value, index) in data" :key="index">
+                            <component
+                                :is="views[schema]?.body"
+                                :value="value"
+                                :editable="false"
+                                :database="database"
+                            />
+                        </tr>
+                    </tbody>
+                </table>
+            </el-text>
         </el-tab-pane>
         <el-tab-pane label="旧版">
             <div id="button-box">

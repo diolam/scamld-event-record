@@ -1,6 +1,7 @@
 <script setup>
 import { saveValue, getAll } from "../api.js";
 import { ref } from "vue";
+import SubjectForm from "./SubjectForm.vue";
 
 const visable = ref(false);
 const value = ref({});
@@ -21,17 +22,14 @@ const handleSave = async () => {
     await save(value.value);
     visable.value = false;
 };
+
 </script>
 
 <template>
     <Teleport to="body">
         <el-dialog v-model="visable">
             <template #header> 修改 </template>
-            <el-form v-model="value">
-                <el-form-item label="名称">
-                    <el-input v-model="value.name" />
-                </el-form-item>
-            </el-form>
+            <subject-form :value="value" />
             <el-button v-loading="loading" type="primary" @click="handleSave()">保存</el-button>
         </el-dialog>
     </Teleport>

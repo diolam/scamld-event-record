@@ -75,7 +75,7 @@ const serialize = {
             }
             tmp.push({
                 name: value.name,
-                deleted: false,
+                deleted: value.deleted,
             });
         });
         return tmp;
@@ -93,7 +93,7 @@ const serialize = {
             tmp.push({
                 name: value.name,
                 subject: value.subject.id,
-                deleted: false,
+                deleted: value.deleted,
             });
         });
         return tmp;
@@ -111,7 +111,7 @@ const serialize = {
             tmp.push({
                 name: value.name,
                 task: value.task.id,
-                deleted: false,
+                deleted: value.deleted,
             });
         });
         return tmp;
@@ -133,7 +133,7 @@ const serialize = {
                 step: value.step.id,
                 type: value.type,
                 status: value.status,
-                deleted: false,
+                deleted: value.deleted,
             });
         });
         return tmp;
@@ -215,11 +215,30 @@ router.post("/api/query", (ctx) => {
     ctx.body = context.result;
 });
 
-router.put("/api/:schema/:id", (ctx) => {
-    const id = Number(ctx.request.params.id);
+router.post("/api/:schema", async (ctx) => {
     const schema = ctx.params.schema;
     const data = ctx.request.body;
 
+    const _value = ctx.state.database[schema].find((value) => !value.deleted);
+    const value = {};
+    Object.entries(data).forEach(([key, val]) => {
+        if (key in _value) {
+            value[key] = val;
+        }
+    });
+
+    ctx.state.database[schema].push(value);
+    await saveDatabase(ctx.state.database);
+    ctx.body = "ok";
+});
+
+router.put("/api/:schema/:id", async (ctx) => {
+    const id = Number(ctx.params.id);
+    const schema = ctx.params.schema;
+    const data = ctx.request.body;
+
+    console.log(ctx.params)
+    
     const value = ctx.state.database[schema].find((value) => value.id === id);
     Object.entries(data).forEach(([key, val]) => {
         if (key in value) {
@@ -227,7 +246,7 @@ router.put("/api/:schema/:id", (ctx) => {
         }
     });
 
-    saveDatabase(ctx.state.database);
+    await saveDatabase(ctx.state.database);
     ctx.body = "ok";
 });
 

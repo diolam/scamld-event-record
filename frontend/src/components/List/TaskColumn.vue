@@ -1,25 +1,12 @@
 <script setup>
 import { saveValue, getAll } from "../api.js";
 import { ref } from "vue";
+import TaskForm from "./TaskForm.vue";
 
 const visable = ref(false);
 const value = ref({});
 const id = ref(0);
-const options = ref([]);
 const loading = ref(false);
-
-const computeOptions = async () => {
-    const database = await getAll();
-    const _options = [];
-    database.subject.forEach((subject) => {
-        _options.push({
-            value: subject.id,
-            label: subject.name,
-        });
-    });
-
-    options.value = _options;
-};
 
 const save = async (value) => {
     value.selected ^= true;
@@ -27,13 +14,10 @@ const save = async (value) => {
     await saveValue("task", value);
 };
 
-const handleEdit = async (scope) => {
+const handleEdit = (scope) => {
+    visable.value = true;
     id.value = [scope.row.subject.id];
     value.value = scope.row;
-    loading.value = true;
-    await computeOptions();
-    loading.value = false;
-    visable.value = true;
 };
 
 const handleSave = async () => {
@@ -47,14 +31,7 @@ const handleSave = async () => {
     <Teleport to="body">
         <el-dialog v-model="visable">
             <template #header> 修改 </template>
-            <el-form v-model="value">
-                <el-form-item label="名称">
-                    <el-input v-model="value.name" />
-                </el-form-item>
-                <el-form-item label="学科">
-                    <el-cascader v-model="id" :options="options" />
-                </el-form-item>
-            </el-form>
+            <task-form v-if="value && visable" v-model:id="id" :value="value" />
             <el-button v-loading="loading" type="primary" @click="handleSave()">保存</el-button>
         </el-dialog>
     </Teleport>

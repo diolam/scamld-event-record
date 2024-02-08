@@ -1,10 +1,32 @@
 import axios from "axios";
+import { ElMessage } from "element-plus";
 
 const handleData = (data) =>
     data.forEach((val) => {
         val.selected = false;
         val.editable = false;
     });
+
+const success = () => {
+    ElMessage({
+        type: "success",
+        message: "成功",
+    });
+};
+
+const failed = () => {
+    ElMessage({
+        type: "error",
+        message: "失败",
+    });
+};
+
+const error = () => {
+    ElMessage({
+        type: "error",
+        message: "错误",
+    });
+};
 
 /**
  * 获取首页数据
@@ -14,13 +36,14 @@ export const getHome = async () => {
     try {
         result = await axios.get("/api/home");
     } catch (e) {
-        alert("获取数据失败");
+        failed();
         console.error(e);
         return;
     }
 
     let data = result.data;
     handleData(data);
+    success();
 
     return data;
 };
@@ -36,9 +59,10 @@ export const postQuery = async (schema, code) => {
             code: code,
         });
     } catch (e) {
-        alert("获取数据失败");
         if (e.response.status === 400) {
-            alert("用户代码运行时出错");
+            error();
+        } else {
+            failed();
         }
         console.error(e);
         return;
@@ -46,6 +70,7 @@ export const postQuery = async (schema, code) => {
 
     let data = result.data;
     handleData(data);
+    success();
 
     return data;
 };
@@ -55,13 +80,14 @@ export const getAll = async () => {
     try {
         result = await axios.get("/api/all");
     } catch (e) {
-        alert("获取数据失败");
+        error();
         console.error(e);
         return;
     }
 
     let data = result.data;
 
+    success()
     return data;
 };
 
@@ -71,8 +97,22 @@ export const saveValue = async (schema, value) => {
             ...value,
         });
     } catch (e) {
-        alert("保存时发生了错误");
+        error()
         console.error(e);
         return;
     }
+    success();
+};
+
+export const createValue = async (schema, value) => {
+    try {
+        await axios.post(`/api/${schema}`, {
+            ...value,
+        });
+    } catch (e) {
+        error()
+        console.error(e);
+        return;
+    }
+    success();
 };
